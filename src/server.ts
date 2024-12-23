@@ -1,7 +1,7 @@
 // Code used from bootcamp activity 26 as boilerplate
 
 import express from "express";
-// import db from "./config/connection.js";
+import db from "./config/connection.js";
 import routes from "./routes/index.js";
 
 const cwd = process.cwd();
@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
-// db.once("open", () => {
-//   app.listen(PORT, () => {
-//     console.log(`API server for ${activity} running on port ${PORT}!`);
-//   });
-// });
+db.once("open", () => {
+  app.listen(PORT, () => {
+    console.log(`API server for ${activity} running on port ${PORT}!`);
+  });
+});

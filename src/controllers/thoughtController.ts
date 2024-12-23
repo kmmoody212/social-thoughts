@@ -15,14 +15,17 @@ export const getThoughts = async (_req: Request, res: Response) => {
 };
 
 // Get a single thought by ID
-export const getSingleThought = async (req: Request, res: Response) => {
+export const getSingleThought = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     // Find a thought by its ID in the request parameters
     const thought = await Thought.findOne({ _id: req.params.thoughtId });
 
     // If no thought is found, return a 404 error
     if (!thought) {
-      return res.status(404).json({ message: "No thought with that ID" });
+      res.status(404).json({ message: "No thought with that ID" });
     }
 
     // Send the found thought as a JSON response
@@ -37,7 +40,10 @@ export const getSingleThought = async (req: Request, res: Response) => {
 };
 
 // Create a new thought and associate it with a user
-export const createThought = async (req: Request, res: Response) => {
+export const createThought = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     // Find the user by the username provided in the request body
     const user = await User.findOne({ username: req.body.username });
@@ -49,7 +55,7 @@ export const createThought = async (req: Request, res: Response) => {
 
     // If the user doesn't exist, return a 404 error
     if (!user) {
-      return res.status(404).json({ message: "User not found by username" });
+      throw new Error("User not found by username");
     }
 
     // Add the thought's ID to the user's thoughts array
@@ -68,7 +74,10 @@ export const createThought = async (req: Request, res: Response) => {
 };
 
 // Update an existing thought by ID
-export const updateThought = async (req: Request, res: Response) => {
+export const updateThought = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     // Update the thought's data using the request body and validate changes
     const thought = await Thought.findOneAndUpdate(
@@ -79,7 +88,7 @@ export const updateThought = async (req: Request, res: Response) => {
 
     // If the thought doesn't exist, return a 404 error
     if (!thought) {
-      return res.status(404).json({ message: "Thought not found" });
+      res.status(404).json({ message: "Thought not found" });
     }
 
     // Send the updated thought as a JSON response
@@ -93,7 +102,10 @@ export const updateThought = async (req: Request, res: Response) => {
 };
 
 // Delete a thought by ID and remove it from the associated user's thoughts array
-export const deleteThought = async (req: Request, res: Response) => {
+export const deleteThought = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     // Find and delete the thought by its ID
     const thought = await Thought.findOneAndDelete({
@@ -102,7 +114,7 @@ export const deleteThought = async (req: Request, res: Response) => {
 
     // If the thought doesn't exist, return a 404 error
     if (!thought) {
-      return res.status(404).json({ message: "Thought not found by ID" });
+      res.status(404).json({ message: "Thought not found by ID" });
     }
 
     // Remove the thought's ID from the associated user's thoughts array
@@ -114,7 +126,7 @@ export const deleteThought = async (req: Request, res: Response) => {
 
     // If the user doesn't exist, return a 404 error
     if (!user) {
-      return res.status(404).json({ message: "User not found by ID" });
+      res.status(404).json({ message: "User not found by ID" });
     }
 
     // Send a success message
@@ -128,7 +140,10 @@ export const deleteThought = async (req: Request, res: Response) => {
 };
 
 // Add a reaction to a thought
-export const addThoughtReaction = async (req: Request, res: Response) => {
+export const addThoughtReaction = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     // Find the thought by ID and add the reaction to its reactions array
     const thought = await Thought.findOneAndUpdate(
@@ -139,7 +154,7 @@ export const addThoughtReaction = async (req: Request, res: Response) => {
 
     // If the thought doesn't exist, return a 404 error
     if (!thought) {
-      return res.status(404).json({ message: "Thought not found" });
+      res.status(404).json({ message: "Thought not found" });
     }
 
     // Send the updated thought as a JSON response
@@ -152,7 +167,10 @@ export const addThoughtReaction = async (req: Request, res: Response) => {
 };
 
 // Remove a reaction from a thought
-export const removeThoughtReaction = async (req: Request, res: Response) => {
+export const removeThoughtReaction = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     // Find the thought by ID and remove the reaction by reaction ID
     const thought = await Thought.findOneAndUpdate(
@@ -163,7 +181,7 @@ export const removeThoughtReaction = async (req: Request, res: Response) => {
 
     // If the thought doesn't exist, return a 404 error
     if (!thought) {
-      return res.status(404).json({ message: "Thought not found" });
+      res.status(404).json({ message: "Thought not found" });
     }
 
     // Send the updated thought as a JSON response
