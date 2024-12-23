@@ -19,9 +19,16 @@ Built using Node.js, Express.js, and MongoDB, this API showcases the fundamental
 
 ## Installation
 
+Users will need to:
+1. Clone this repository
+2. Run `npm install` in the command-line to install modules needed.
+3. Use `npm run build` in the command-line to build the application.
+4. Run the application with `npm run start`.
 
 
 ## Usage
+
+Users can use Insomnia to view API endpoints.
 
 
 
@@ -33,11 +40,12 @@ Built using Node.js, Express.js, and MongoDB, this API showcases the fundamental
 
 ## Contributing
 
+Contributions are welcome! Please clone this repository and make changes on a new branch, then push for me to review.
 
 
 ## Tests
 
-
+Testing in progress!
 
 ## Questions
 
